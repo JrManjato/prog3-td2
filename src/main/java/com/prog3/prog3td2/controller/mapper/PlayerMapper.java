@@ -11,7 +11,6 @@ public class PlayerMapper {
     return PlayerResponse.builder()
         .id(player.getId())
         .name(player.getName())
-        .number(player.getNumber())
         .team(player.getTeam() == null ? null : player.getTeam().getName())
         .build();
   }
