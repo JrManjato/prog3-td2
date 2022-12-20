@@ -12,6 +12,5 @@ import lombok.Setter;
 public class PlayerResponse {
   private Integer id;
   private String name;
-  private Integer number;
   private String team;
 }

@@ -2,7 +2,8 @@ insert into team("name")
 values ('Paris Saint-Germain'),
        ('FC Barcelone');
 insert into player(name, number, id_team)
-VALUES ('Neymar JR', 10, 1),
+VALUES ('Gianluigi Donnarumma', 99, 1),
+       ('Neymar JR', 10, 1),
        ('Ansu Fati', 22, 2);
 insert into sponsor(name)
 VALUES ('Qatar Airways'),

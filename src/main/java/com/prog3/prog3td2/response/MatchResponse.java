@@ -1,10 +1,11 @@
 package com.prog3.prog3td2.response;
 
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Builder
@@ -12,8 +13,7 @@ import lombok.Setter;
 @Setter
 public class MatchResponse {
   private Integer id;
-  private String teamHome;
-  private String teamOpponent;
+  private TeamResponse teamHome;
+  private TeamResponse teamOpponent;
   private LocalDateTime datetime;
-  private String stadium;
 }

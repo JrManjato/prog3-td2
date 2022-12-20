@@ -1,6 +1,5 @@
 package com.prog3.prog3td2.model;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,12 +8,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
-import java.util.List;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
+
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
@@ -35,7 +38,7 @@ public class Team {
       inverseJoinColumns = @JoinColumn(name = "id_sponsor", referencedColumnName = "id")
   )
   private List<Sponsor> sponsors;
-  @OneToOne
+  @OneToMany
   @JoinTable(
       name = "play_against",
       joinColumns = {
@@ -45,5 +48,8 @@ public class Team {
           @JoinColumn(name = "id_opponent", referencedColumnName = "id"),
       }
   )
-  private Team opponent;
+  private List<Team> opponent;
+  @OneToMany(mappedBy = "team")
+  @OrderBy("number")
+  private List<Player> players;
 }
