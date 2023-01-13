@@ -1,96 +1,185 @@
 openapi: 3.0.3
 info:
-  title: Match management API
-  description: Match management API
+  title: Foot spec
+  description: Foot spec
   version: 1.0.0
 servers:
-  - url: 'http://localhost:8080'
+  - url: 'https://petstore3.swagger.io/api/v3'
+tags:
+  - name: Match
+  - name: Player
+  - name: Team
+
 paths:
-  /matches:
+  /matchs:
     get:
-      summary: get all matches
       tags:
-        - Matches
-      operationId: getMatches
+        - Match
+      summary: List of all matchs
+      operationId: getAllMatchs
       responses:
         200:
-          description: list of all matches
+          description: 'OK'
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Match'
-  /players:
+                  $ref: '#/components/schemas/PlayAgainst'
+
+        400:
+          description: 'BAD REQUEST'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/responses/Bad_request'
+  /team:
     get:
-      summary: get all players
       tags:
-        - Players
-      operationId: getPlayers
+        - Team
+      summary: Get All team and its sponsors and players
+      operationId: getAllTeam
       responses:
         200:
-          description: list of all players
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Have'
+        400:
+          description: 'BAD REQUEST'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/responses/Bad_request'
+
+  /players:
+    get:
+      tags:
+        - Player
+      summary: get players
+      operationId: getAllPLayers
+      responses:
+        200:
+          description: 'OK'
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Player'
-  /teams:
-    get:
-      summary: get all teams
-      tags:
-        - Teams
-      operationId: getTeams
-      responses:
-        200:
-          description: list of all teams
+        400:
+          description: 'BAD REQUEST'
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Team'
+                  $ref: '#/components/responses/Bad_request'
 components:
+  responses:
+    Bad_request:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Please verify your request"
+
   schemas:
     Player:
       type: object
       properties:
         id:
           type: integer
+          example: 2
         name:
           type: string
+          example: 'Leonel Messi'
+        position:
+          type: string
+          example: 'goal keeper'
+
     Team:
       type: object
       properties:
         id:
           type: integer
+          example: 1
         name:
           type: string
-        players:
-          type: array
-          items:
-            $ref: '#/components/schemas/Player'
-        sponsors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Sponsor'
+          example: 'Paris Saint Germain'
+
+    TeamOpponent:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+        name:
+          type: string
+          example: 'FC Barcelone'
+
     Sponsor:
       type: object
       properties:
         id:
           type: integer
+          example: 1
         name:
           type: string
-    Match:
+          example: 'Qatar Airways'
+
+    PlayAgainst:
       type: object
       properties:
         id:
-          type: string
-        teamHome:
+          type: integer
+          example: 1
+        team_id:
           $ref: '#/components/schemas/Team'
-        teamOpponent:
-          $ref: '#/components/schemas/Team'
+        team_opponent_id:
+          $ref: '#/components/schemas/TeamOpponent'
         datetime:
           type: string
-          format: date-time
+          format: date
+
+    Have:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 10
+        team:
+          $ref: '#/components/schemas/Team'
+        sponsor:
+          $ref: '#/components/schemas/Sponsor'
+        players:
+          $ref: '#/components/schemas/Player'
+
+    Scores:
+      type: object
+      properties:
+        id:
+          type: integer
+        id_player:
+          type: integer
+        id_goal:
+          type: integer
+        scoring_time:
+          type: integer
+
+    Goals:
+      type: object
+      properties:
+        id:
+          type: integer
